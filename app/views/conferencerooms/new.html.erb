@@ -1,0 +1,11 @@
+<%= form_with model: @conferenceroom do |f| %>
+  <%= f.label :people %>
+  <%= f.text_field :people %>
+  <%= f.label :price %>
+  <%= f.text_field :price %>
+  <%= f.label :availabletime %>
+  <%= f.text_field :availabletime %>
+  <%= f.label :remarks %>
+  <%= f.text_field :remarks %>
+  <%= f.submit "登録", class: "btn btn-primary" %>
+<% end %>
