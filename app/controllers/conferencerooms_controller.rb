@@ -4,13 +4,19 @@ class ConferenceroomsController < ApplicationController
   end
   
   def create
-    @conferenceroom = facility.conferencerooms.create(post_params)
-    debugger
-    redirect_to root_path
+    facility = Facility.new
+    facility.save
+    @conferenceroom = Conferenceroom.new(conferenceroom_params)
+    if @conferenceroom.save
+      flash[:success] = "会議室を登録しました"
+      redirect_to root_url
+    else
+      render 'new'
+    end
   end
   
   private
-    def post_params
-      params.require(:conferenceroom).permit(:people, :price, :availabletime, :remarks).merge(facility_id: current_user.id)
+    def conferenceroom_params
+      params.require(:conferenceroom).permit(:people, :price, :availabletime, :remarks)
     end
 end
