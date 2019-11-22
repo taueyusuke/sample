@@ -11,12 +11,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    super
     facility = Facility.new
     facility.save
-    @user = User.new
-    @user.save!
-    super
+    @user = User.new(user_params)
+    if @user.save!
+      flash[:success] = "ユーザーを登録しました"
+      root_url and return
+    else
+      'registrations/new'
+    end
   end
+  
+  private
+    def user_params
+      params.require(:user).permit(:email, :password, :lastname, :firstname)
+    end
 
   # GET /resource/edit
   # def edit
