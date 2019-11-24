@@ -4,7 +4,7 @@ class CreateConferencerooms < ActiveRecord::Migration[5.2]
       t.integer :people, null: false
       t.integer :price, null: false
       t.time :starttime, null: false
-       t.time :endtime, null: false
+      t.time :endtime, null: false
       t.text :remarks
       t.references :facility, foreign_key: true, null: false
 

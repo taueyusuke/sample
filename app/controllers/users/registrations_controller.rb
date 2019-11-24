@@ -15,9 +15,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     facility = Facility.new
     facility.save
     @user = User.new(user_params)
-    if @user.save!
+    @user.facility_id = 1
+    if @user.save
       flash[:success] = "ユーザーを登録しました"
-      root_url and return
+      root_url
     else
       'registrations/new'
     end
@@ -25,7 +26,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   private
     def user_params
-      params.require(:user).permit(:email, :password, :lastname, :firstname)
+      params.require(:user).permit(:email, :password, :lastname, :firstname, :password_confirmation)
     end
 
   # GET /resource/edit
@@ -65,12 +66,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_sign_up_path_for(resource)
+    root_path
+  end
 
   # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_inactive_sign_up_path_for(resource)
+    root_path
+  end
 end

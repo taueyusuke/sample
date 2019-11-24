@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_15_123340) do
+ActiveRecord::Schema.define(version: 2019_11_24_163852) do
 
   create_table "conferencerooms", force: :cascade do |t|
     t.integer "people", null: false
@@ -51,7 +51,9 @@ ActiveRecord::Schema.define(version: 2019_11_15_123340) do
     t.datetime "updated_at", null: false
     t.string "lastname", default: "", null: false
     t.string "firstname", default: "", null: false
+    t.integer "facility_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["facility_id"], name: "index_users_on_facility_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
