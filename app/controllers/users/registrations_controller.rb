@@ -10,17 +10,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
+
+  # The path used after sign up for inactive accounts.
+  #def after_inactive_sign_up_path_for(resource)
+  #  root_path
+  #end
+  
+  
   def create
-    super
     facility = Facility.new
     facility.save
     @user = User.new(user_params)
     @user.facility_id = 1
     if @user.save
       flash[:success] = "ユーザーを登録しました"
-      root_url
+      redirect_to root_url
     else
-      'registrations/new'
+      render 'new'
     end
   end
   
@@ -66,12 +72,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  def after_sign_up_path_for(resource)
-    root_path
-  end
+  #def after_sign_up_path_for(resource)
+  #  root_path
+  #end
 
   # The path used after sign up for inactive accounts.
-  def after_inactive_sign_up_path_for(resource)
-    root_path
-  end
+  #def after_inactive_sign_up_path_for(resource)
+  #  root_path
+  #end
 end
